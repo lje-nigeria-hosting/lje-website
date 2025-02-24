@@ -4,14 +4,15 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 import { HiMail, HiKey } from "react-icons/hi";
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { login } from "@/utils/actions";
+import Toast from "../admin/Toast";
 
-interface LoginPageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export default function Login({ searchParams }: LoginPageProps) {
+export default function Login({
+  searchParams,
+}: {
+  searchParams: { signupsucess?: string | undefined };
+}) {
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,18 +23,6 @@ export default function Login({ searchParams }: LoginPageProps) {
   const changeButtonText = () => {
     setIsSubmitting(true);
   };
-
-  const [showToast, setShowToast] = useState(false);
-
-  useEffect(() => {
-    if (searchParams.signupsucess === "true") {
-      setShowToast(true);
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
 
   return (
     <>
@@ -121,14 +110,8 @@ export default function Login({ searchParams }: LoginPageProps) {
           </div>
         </div>
       </div>
-      {showToast && (
-        <div className="toast toast-end">
-          <div className="alert alert-success bg-green-700">
-            <span className="text-white">
-              Thank you for signing up. We sent you an email.
-            </span>
-          </div>
-        </div>
+      {searchParams?.signupsucess && (
+        <Toast message="Sign up success!! We sent you an email" />
       )}
     </>
   );

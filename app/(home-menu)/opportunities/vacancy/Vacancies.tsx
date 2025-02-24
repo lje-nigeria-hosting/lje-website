@@ -61,7 +61,10 @@ export default function Vacancy({ vacancy }: VacancyProps) {
                 <ul>
                   {vacancy.responsibilities.map((responsibility: string) => {
                     return (
-                      <li className="text-base pl-4 md:flex items-center">
+                      <li
+                        key={responsibility}
+                        className="text-base pl-4 md:flex items-center"
+                      >
                         <GoDotFill size={10} className="mr-1 inline" />
                         {responsibility}
                       </li>
@@ -76,7 +79,10 @@ export default function Vacancy({ vacancy }: VacancyProps) {
                 <ul>
                   {vacancy.qualifications.map((qualification: string) => {
                     return (
-                      <li className="text-base pl-4 md:flex items-center">
+                      <li
+                        key={qualification}
+                        className="text-base pl-4 md:flex items-center"
+                      >
                         <GoDotFill size={10} className="mr-1 inline" />
                         {qualification}
                       </li>
@@ -92,7 +98,10 @@ export default function Vacancy({ vacancy }: VacancyProps) {
                   <ul>
                     {vacancy.requirements.map((requirement: string) => {
                       return (
-                        <li className="text-base pl-4 md:flex items-center">
+                        <li
+                          key={requirement}
+                          className="text-base pl-4 md:flex items-center"
+                        >
                           <GoDotFill size={10} className="mr-1 inline" />
                           {requirement}
                         </li>
@@ -109,7 +118,10 @@ export default function Vacancy({ vacancy }: VacancyProps) {
                   <ul>
                     {vacancy.instructions.map((instruction: string) => {
                       return (
-                        <li className="text-base pl-4 md:flex items-center">
+                        <li
+                          key={instruction}
+                          className="text-base pl-4 md:flex items-center"
+                        >
                           <GoDotFill size={10} className="mr-1 inline" />
                           {instruction}
                         </li>
