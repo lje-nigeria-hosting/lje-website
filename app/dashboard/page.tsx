@@ -26,6 +26,7 @@ const Dashboard = async ({ searchParams }: DashboardPageProps) => {
         {announcements.map((announcement) => {
           return (
             <AnnouncementCard
+              membersOnly={announcement.membersOnly}
               key={announcement.id}
               permalink={announcement.permalink}
               category={announcement.category}
