@@ -3,6 +3,8 @@ import prisma from "@/utils/db";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React from "react";
+import MarkupRenderer from "@/app/(home-menu)/news/[permalink]/MarkUpRenderer";
+import { marked } from "marked";
 
 interface AnnouncementPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -14,6 +16,8 @@ const AnnouncementPage = async ({ searchParams }: AnnouncementPageProps) => {
   const announcement = await prisma.announcement.findFirst({
     where: { permalink: searchParams.permalink as string },
   });
+
+  const markupContent = marked(announcement?.content as string);
 
   return (
     <>
@@ -29,9 +33,7 @@ const AnnouncementPage = async ({ searchParams }: AnnouncementPageProps) => {
             style={{ width: "100%", height: "auto" }}
           />
         </div>
-        <p className="text-justify leading-6 py-10 text-lg">
-          {announcement?.content}
-        </p>
+        <MarkupRenderer markupContent={markupContent} />
       </div>
       <div className="w-full">
         <DashboardFooter />
