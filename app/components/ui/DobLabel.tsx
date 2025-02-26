@@ -3,7 +3,7 @@
 export default function DobLabel() {
   return (
     <>
-      <label className="input input-bordered flex items-center w-full">
+      <label className="input input-bordered flex items-center w-[50%]">
         <input
           type="date"
           name="dob"

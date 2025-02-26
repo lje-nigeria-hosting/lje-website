@@ -6,16 +6,16 @@ import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
 import { getSession } from "./getSession";
 import { revalidatePath } from "next/cache";
-import { CreateEmailOptions, CreateEmailRequestOptions } from "resend";
-import { Resend } from "resend";
-import { EmailTemplate } from "@/app/components/email-template/WelcomeEmailTemplate";
 import crypto from "crypto";
-import fs from "node:fs/promises";
-import { ResetPasswordEmailTemplate } from "@/app/components/email-template/ResetPasswordEmail";
 import { createClient } from "@supabase/supabase-js";
-import { DateTime } from "next-auth/providers/kakao";
+const Mailgun = require("mailgun.js").default;
+import formData from "form-data";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const mailgun = new Mailgun(formData);
+const mg = mailgun.client({
+  username: "api",
+  key: process.env.MAILGUN_API_KEY!,
+});
 
 // Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL; // Your Supabase URL
@@ -69,13 +69,19 @@ export const resetPassword = async (email: string) => {
   await sendEmail({
     from: "LJE Nigeria <admin@ljenigeria.com>",
     to: [email],
-    subject: "Reset Password",
-    react: ResetPasswordEmailTemplate({
-      email,
-      resetPasswordToken,
-    }) as React.ReactElement,
+    subject: "Reset Password - LJE Nigeria",
+    html: `<div>
+    <h1>
+      Reset password for <b>${user.userName}</b>
+    </h1>
+    <p>
+      To reset your password, click on this link and follow the instructions:{" "}
+      <a href="https://ljenigeria.org/reset-password?token=${resetPasswordToken}">
+        Click here to reset
+      </a>
+    </p>
+  </div>`,
   });
-
   return "Password reset email sent";
 };
 
@@ -118,15 +124,26 @@ export const changePasswordOnReset = async (
 };
 
 // Create mail with options provided
-export const sendEmail = async (
-  payload: CreateEmailOptions,
-  options?: CreateEmailRequestOptions | undefined
-) => {
-  const data = await resend.emails.send(payload, options);
+export const sendEmail = async (payload: {
+  from: string;
+  to: string[];
+  subject: string;
+  html: string;
+}) => {
+  try {
+    const response = await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
+      from: payload.from,
+      to: payload.to,
+      subject: payload.subject,
+      html: payload.html,
+    });
 
-  console.log("Email sent successfully");
-
-  return data;
+    console.log("Email sent successfully:", response);
+    return response;
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw error;
+  }
 };
 
 // Creates a new user and sends a welcome mail
@@ -210,13 +227,15 @@ export const createUser = async (formData: FormData) => {
     },
   });
   // Sends a mail to new user
+
   await sendEmail({
     from: "LJE Nigeria <admin@ljenigeria.com>",
     to: [formData.get("email") as string],
     subject: "Welcome to LJE Nigeria",
-    react: EmailTemplate({
-      userName: formData.get("username") as string,
-    }) as React.ReactElement,
+    html: `<div>
+    <h1>Welcome, ${formData.get("username") as string} to LJE Nigeria!</h1>
+    <p>Your account has been created successfully. Please login to continue.</p>
+  </div>`,
   });
   redirect("/login?signupsucess=true");
 };

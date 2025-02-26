@@ -168,7 +168,7 @@ export default async function Home() {
                 />
               </label>
               <div className="flex justify-center items-center space-x-3">
-                <label className="input input-bordered flex items-center w-full gap-2">
+                <label className="input input-bordered flex items-center w-[50%] gap-2">
                   <MdWork className="inline" />
                   <input
                     type="text"
