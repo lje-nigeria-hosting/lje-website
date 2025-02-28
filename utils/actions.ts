@@ -14,7 +14,8 @@ import formData from "form-data";
 const mailgun = new Mailgun(formData);
 const mg = mailgun.client({
   username: "api",
-  key: process.env.MAILGUN_API_KEY!,
+  key: process.env.MAILGUN_API_KEY || "API KEY",
+  url: "https://api.eu.mailgun.net/v3/",
 });
 
 // Initialize Supabase client
@@ -131,7 +132,7 @@ export const sendEmail = async (payload: {
   html: string;
 }) => {
   try {
-    const response = await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
+    const response = await mg.messages.create(mg.ljenigeria.org, {
       from: payload.from,
       to: payload.to,
       subject: payload.subject,
