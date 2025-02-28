@@ -19,6 +19,15 @@ export default function page({
 }: {
   searchParams: { contactsuccess?: string | undefined };
 }) {
+  const handleContact = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await createContactMessage(formData);
+    if (response === "Missing required fields") {
+      alert("Missing required fields");
+    }
+  };
+
   return (
     <div>
       <HomeNav />
@@ -88,10 +97,7 @@ export default function page({
 
             {/* Right Side - Contact Form */}
             <div className="bg-gray-100 md:p-6 p-3 pt-4 rounded-2xl shadow-md">
-              <form
-                action={createContactMessage}
-                className="md:space-y-4 space-y-2"
-              >
+              <form onSubmit={handleContact} className="md:space-y-4 space-y-2">
                 <div className="grid grid-cols-2 gap-4">
                   <input
                     type="text"

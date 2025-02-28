@@ -9,6 +9,15 @@ export default function page({
 }: {
   searchParams: { success?: string | undefined };
 }) {
+  const handleViolation = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await createViolation(formData);
+    if (response === "Missing required fields") {
+      alert("Missing required fields");
+    }
+  };
+
   return (
     <div>
       <HomeNav />
@@ -37,7 +46,7 @@ export default function page({
             Report an issue
           </h2>
 
-          <form action={createViolation} className="space-y-4">
+          <form onSubmit={handleViolation} className="space-y-4">
             {/* Full Name */}
             <input
               type="text"

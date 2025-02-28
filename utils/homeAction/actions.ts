@@ -11,7 +11,7 @@ export const createContactMessage = async (formData: FormData) => {
   const message = formData.get("message") as string;
 
   if (!firstName || !lastName || !email || !message) {
-    throw new Error("Missing required fields");
+    return "Missing required fields";
   }
 
   await prisma.contactMessage.create({
@@ -34,7 +34,7 @@ export const createViolation = async (formData: FormData) => {
   const whatHappened = formData.get("whathappened") as string;
 
   if (!fullName || !location || !phone || !rightsViolated || !whatHappened) {
-    throw new Error("Missing required fields");
+    return "Missing required fields";
   }
 
   await prisma.violation.create({
