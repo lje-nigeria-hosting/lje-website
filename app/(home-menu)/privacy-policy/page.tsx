@@ -10,7 +10,24 @@ export default function page() {
         information when you use our website and services.
       </h3>
 
-      <h2 className="pt-8">1. Information We Collect</h2>
+      <h2 className="pt-8">1. Who are we?</h2>
+      <h3>
+        We are LJE Nigeria, a Nigerian movement with a progressive
+        internationalist outlook, committed to engaging with global progressive
+        movements.
+        <br />
+        When collecting information, we are under the Nigerian business data
+        protection laws, this means that we are responsible for deciding how we
+        hold and use personal data about you.
+      </h3>
+
+      <h2 className="pt-8">2. How do we collect your data</h2>
+      <h3>
+        We collect your data when you fill in a sign up form, a contacts form, a
+        donation form or when you report a violation to us.
+      </h3>
+
+      <h2 className="pt-8">3. Information We Collect</h2>
       <ul>
         <li>
           <h3>
@@ -34,7 +51,7 @@ export default function page() {
         </li>
       </ul>
 
-      <h2 className="pt-8">2. How We Use Your Data</h2>
+      <h2 className="pt-8">4. How We Use Your Data</h2>
       <h3>We use your data for the following purposes:</h3>
       <ul>
         <li>
@@ -54,7 +71,17 @@ export default function page() {
         </li>
       </ul>
 
-      <h2 className="pt-8">3. Sharing Your Information</h2>
+      <h2 className="pt-8">
+        5. What are our purposes and legal bias for collecting your data?
+      </h2>
+      <h3>
+        We collect your personal data because we need it to provide you with our
+        services because you have entered a contract with us(for instace when
+        you fill a signup form or you report a violation to us). Otherwise, we
+        collect data based on your consent for that specific purpose.
+      </h3>
+
+      <h2 className="pt-8">6. Sharing Your Information</h2>
       <h3>
         We do not share your personal information with third parties. However,
         we may share your information with:
@@ -74,14 +101,17 @@ export default function page() {
         </li>
       </ul>
 
-      <h2 className="pt-8">4. Data Security</h2>
+      <h2 className="pt-8">7. For how long do we retain your personal data?</h2>
       <h3>
-        We implement security measures to protect your data from unauthorized
-        access. However, no system is completely secure, and users should also
-        take steps to protect their information.
+        We keep your personal data for as long as is necessary to provide our
+        services to you(unless required by law).
+        <br />
+        If you would like us to cease all the described uses of your personal
+        data, you can contact us at admin@ljenigeria.com and we will delete your
+        data immediately and permanently.
       </h3>
 
-      <h2 className="pt-8">5. Your Rights</h2>
+      <h2 className="pt-8">8. Your Rights</h2>
       <h3>You have the right to:</h3>
       <ul>
         <li>
@@ -103,13 +133,20 @@ export default function page() {
         </li>
       </ul>
 
-      <h2 className="pt-8">6. Third-Party Links</h2>
+      <h2 className="pt-8">9. Data Security</h2>
+      <h3>
+        We implement security measures to protect your data from unauthorized
+        access. However, no system is completely secure, and users should also
+        take steps to protect their information.
+      </h3>
+
+      <h2 className="pt-8">10. Third-Party Links</h2>
       <h3>
         Our website may contain links to external sites. We are not responsible
         for their privacy practices.
       </h3>
 
-      <h2 className="pt-8">7. Changes to this Policy</h2>
+      <h2 className="pt-8">11. Changes to this Policy</h2>
       <h3>
         We may update this Privacy Policy periodically. Changes will be posted
         on this page with the updated date.
