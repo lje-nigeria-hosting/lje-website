@@ -15,6 +15,22 @@ const CreateAnnouncement = async () => {
   if (user?.role === "USER") {
     redirect("/dashboard");
   }
+
+  const handleAnnouncement = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await createAnnouncement(formData);
+    if (response === "No file detected") {
+      alert("No file detected");
+    } else if (response === "This post probably already exists") {
+      alert("This post probably already exists");
+    } else if (response === "User not found") {
+      alert("User not found");
+    } else if (response === "Invalid Credentials") {
+      alert("Invalid Credentials");
+    }
+  };
+
   return (
     <>
       <div>
@@ -22,7 +38,7 @@ const CreateAnnouncement = async () => {
           Create new announcement by filling this form correctly
         </h2>
         <form
-          action={createAnnouncement}
+          onSubmit={handleAnnouncement}
           className="mx-12 md:mx-[20%] space-y-4 py-6"
         >
           <input

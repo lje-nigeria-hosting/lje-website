@@ -35,7 +35,7 @@ export const login = async (formData: FormData) => {
       password,
     });
   } catch (error) {
-    throw new Error("Invalid Credentials");
+    return "Invalid Credentials";
   }
   redirect("/dashboard");
 };
@@ -49,7 +49,7 @@ export const resetPassword = async (email: string) => {
   });
 
   if (!user) {
-    throw new Error("User not found");
+    return "User not found";
   }
 
   const resetPasswordToken = crypto.randomBytes(32).toString("base64url");
@@ -161,20 +161,20 @@ export const createUser = async (formData: FormData) => {
     !formData.get("education") ||
     !formData.get("occupation")
   ) {
-    throw new Error("Please fill the form details correctly");
+    return "Please fill the form details correctly";
   }
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   if (!emailRegex.test(formData.get("email") as string)) {
-    throw new Error("Invalid email");
+    return "Invalid email";
   }
 
   if (
     (formData.get("password") as string) !=
     (formData.get("confirmpassword") as string)
   ) {
-    throw new Error("Passwords do not match");
+    return "Passwords do not match";
   }
 
   const salt = genSaltSync(10);
@@ -196,7 +196,7 @@ export const createUser = async (formData: FormData) => {
   console.log(formData.get("dob"));
 
   if (existingUserEmail) {
-    throw new Error("User already exists");
+    return "User already exists";
   }
 
   const userRole = () => {
@@ -249,11 +249,11 @@ export const createAnnouncement = async (formData: FormData) => {
   const file = formData.get("file") as File;
 
   if (!file) {
-    throw new Error("No file detected");
+    return "No file detected";
   }
 
   if (announcementTitle) {
-    throw new Error("This post probably already exists");
+    return "This post probably already exists";
   } else {
     const { data: image, error: uploadError } = await supabase.storage
       .from("ljefiles")
@@ -291,7 +291,7 @@ export const createStateRep = async (formData: FormData) => {
     !formData.get("state") ||
     !formData.get("gender")
   ) {
-    throw new Error("Please fill the form details correctly");
+    return "Please fill the form details correctly";
   }
 
   const existingStateRep = await prisma.stateRep.findUnique({
@@ -299,7 +299,7 @@ export const createStateRep = async (formData: FormData) => {
   });
 
   if (existingStateRep) {
-    throw new Error("State Rep with this email already exists");
+    return "State Rep with this email already exists";
   } else {
     await prisma.stateRep.create({
       data: {
@@ -320,13 +320,13 @@ export const uploadUserImage = async (formData: FormData) => {
   const file = formData.get("file") as File;
 
   if (!file) {
-    throw new Error("No file detected");
+    return "No file detected";
   }
 
   const session = await getSession();
 
   if (file.size > 1048576) {
-    throw new Error("File is too large");
+    return "File is too large";
   }
 
   const { data: image, error: uploadError } = await supabase.storage

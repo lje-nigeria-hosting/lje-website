@@ -59,6 +59,21 @@ const StateReps = async () => {
     "Zamfara",
   ];
 
+  const handleStateRep = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await createStateRep(formData);
+    if (response === "Please fill the form details correctly") {
+      alert("Please fill the form details correctly");
+    } else if (response === "State Rep with this email already exists") {
+      alert("State Rep with this email already exists");
+    } else if (response === "User not found") {
+      alert("User not found");
+    } else if (response === "Invalid Credentials") {
+      alert("Invalid Credentials");
+    }
+  };
+
   const stateReps = await prisma.stateRep.findMany();
 
   return (
@@ -67,7 +82,7 @@ const StateReps = async () => {
         <div className="md:bg-[url('/logo.png')] md:bg-no-repeat md:bg-center md:bg-cover md:px-[30%] md:bg-blend-overlay md:bg-gray-200">
           <div className="md:bg-white pt-10 px-4 md:px-6">
             <h1 className="text-center text-2xl pb-6">Create New State Rep</h1>
-            <form className="space-y-4" action={createStateRep}>
+            <form className="space-y-4" onSubmit={handleStateRep}>
               <label className="input input-bordered flex items-center gap-2">
                 <HiUser />
                 <input

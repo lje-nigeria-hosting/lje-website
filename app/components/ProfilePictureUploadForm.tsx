@@ -3,6 +3,17 @@ import { uploadUserImage } from "@/utils/actions";
 import React from "react";
 
 const ProfilePictureUploadForm = () => {
+  const handlePictureUpload = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await uploadUserImage(formData);
+    if (response === "File is too large") {
+      alert("File is too large");
+    } else if (response === "No file detected") {
+      alert("No file detected");
+    }
+  };
+
   return (
     <form className="text-center space-y-2" action={uploadUserImage}>
       <input

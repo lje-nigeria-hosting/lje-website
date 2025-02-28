@@ -7,6 +7,7 @@ import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { useState } from "react";
 import { login } from "@/utils/actions";
 import Toast from "../admin/Toast";
+import { redirect } from "next/navigation";
 
 export default function Login({
   searchParams,
@@ -22,6 +23,16 @@ export default function Login({
 
   const changeButtonText = () => {
     setIsSubmitting(true);
+  };
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await login(formData);
+    setIsSubmitting(false);
+    if (response === "Invalid Credentials") {
+      alert("Invalid Credentials");
+    }
   };
 
   return (
@@ -45,7 +56,7 @@ export default function Login({
             </p>
           </div>
           <div className="mx-12">
-            <form className="space-y-4" action={login}>
+            <form className="space-y-4" onSubmit={handleLogin}>
               <label className="input input-bordered flex items-center gap-2">
                 <HiMail className="inline" />
                 <input

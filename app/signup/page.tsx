@@ -18,6 +18,25 @@ export default async function Home() {
     redirect("/dashboard");
   }
 
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await createUser(formData);
+    if (response === "User already exists") {
+      alert("User already exists");
+    } else if (response === "Invalid email") {
+      alert("Invalid email");
+    } else if (response === "Passwords do not match") {
+      alert("Passwords do not match");
+    } else if (response === "Please fill the form details correctly") {
+      alert("Please fill the form details correctly");
+    } else if (response === "User not found") {
+      alert("User not found");
+    } else if (response === "Invalid Credentials") {
+      alert("Invalid Credentials");
+    }
+  };
+
   const states = [
     "Abia",
     "Adamawa",
@@ -77,7 +96,7 @@ export default async function Home() {
             </p>
           </div>
           <div className="mx-12">
-            <form className="space-y-4" action={createUser}>
+            <form className="space-y-4" onSubmit={handleRegister}>
               <div className="flex space-x-3 items-center justify-center w-full">
                 <label className="input input-bordered w-[48%] flex items-center gap-2">
                   <input
