@@ -209,7 +209,7 @@ export const createUser = async (formData: FormData) => {
 
   await prisma.user.create({
     data: {
-      email: formData.get("email") as string,
+      email: (formData.get("email") as string)?.toLowerCase(),
       password: hashedPassword,
       firstName: formData.get("firstname") as string,
       lastName: formData.get("lastname") as string,

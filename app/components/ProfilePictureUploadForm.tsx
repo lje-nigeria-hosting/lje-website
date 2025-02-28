@@ -15,7 +15,7 @@ const ProfilePictureUploadForm = () => {
   };
 
   return (
-    <form className="text-center space-y-2" action={uploadUserImage}>
+    <form className="text-center space-y-2" onSubmit={handlePictureUpload}>
       <input
         type="file"
         name="file"
