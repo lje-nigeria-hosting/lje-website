@@ -20,7 +20,6 @@ export default async function VacancyPage() {
           return <Vacancy key={vacancy.id} vacancy={vacancy} />;
         })}
       </div>
-      <HomeFooter />
     </div>
   );
 }

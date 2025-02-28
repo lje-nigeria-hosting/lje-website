@@ -1,3 +1,4 @@
+"use client";
 import Toast from "@/app/admin/Toast";
 import HomeFooter from "@/app/components/HomeFooter";
 import HomeNav from "@/app/components/HomeNav";

@@ -6,13 +6,9 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <main>
-          <AdminNav />
-          {children}
-        </main>
-      </body>
-    </html>
+    <main>
+      <AdminNav />
+      {children}
+    </main>
   );
 }
