@@ -58,12 +58,31 @@ const CreateUser = async () => {
     "Zamfara",
   ];
 
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await createUser(formData);
+    if (response === "User already exists") {
+      alert("User already exists");
+    } else if (response === "Invalid email") {
+      alert("Invalid email");
+    } else if (response === "Passwords do not match") {
+      alert("Passwords do not match");
+    } else if (response === "Please fill the form details correctly") {
+      alert("Please fill the form details correctly");
+    } else if (response === "User not found") {
+      alert("User not found");
+    } else if (response === "Invalid Credentials") {
+      alert("Invalid Credentials");
+    }
+  };
+
   return (
     <>
       <div className="md:bg-[url('/logo.png')] md:bg-no-repeat md:bg-center md:bg-cover md:px-[30%] md:bg-blend-overlay md:bg-gray-200">
         <div className="md:bg-white pt-10 px-4 md:px-6">
           <h1 className="text-center text-2xl pb-6">Create New User</h1>
-          <form className="space-y-4" action={createUser}>
+          <form className="space-y-4" onSubmit={handleRegister}>
             <div className="flex space-x-3 items-center justify-center w-full">
               <label className="input input-bordered w-[48%] flex items-center gap-2">
                 <input type="text" name="firstname" placeholder="First Name" />
