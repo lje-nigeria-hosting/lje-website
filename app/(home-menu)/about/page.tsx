@@ -25,7 +25,7 @@ export default function page() {
               deficits, justice system reforms, and economic advancement
             </p>
           </div>
-          <div className="bg-gradient-to-r from-green-300 via-green-700 to-green-900 py-12">
+          <div className="bg-green-900 py-12">
             <h1 className="text-white">Our Vision</h1>
             <p className="text-white md:px-48 md:pt-5 leading-5 md:text-center text-justify px-6">
               The LJE will, with determination and consistency associate with

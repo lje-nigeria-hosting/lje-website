@@ -48,7 +48,7 @@ export default async function HomePage() {
 
       {/* // Next Section */}
       <div>
-        <div className="w-full bg-gradient-to-r from-green-300 via-green-700 to-green-900 md:py-20 md:px-36 py-10 px-4 gap-40 md:flex items-center">
+        <div className="w-full bg-green-900 md:py-20 md:px-36 py-10 px-4 gap-40 md:flex items-center">
           <div>
             <Image
               src="/homeFiles/header-logo.png"
