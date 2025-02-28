@@ -4,30 +4,34 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { LuDot } from "react-icons/lu";
 
-export default function NewsGlider() {
-  const newsHeadlines = [
-    {
-      title: "Breaking: New Tech Trends in 2025",
-      link: "/news/tech-trends-2025",
-    },
-    {
-      title: "Economy: Inflation Drops by 2% in the US",
-      link: "/news/inflation-update",
-    },
-    {
-      title: "Sports: Nigeria Wins AFCON 2025",
-      link: "/news/nigeria-afcon-2025",
-    },
-    {
-      title: "Music: Rema's new song declared potential jam of the year",
-      link: "/news/rema's new hit",
-    },
-    {
-      title:
-        "Breaking: D.O.G.E discovers tax payer money used to fund terrorist groups",
-      link: "/news/terrorist-funding-by-the-us",
-    },
-  ];
+interface NewsGliderProps {
+  newsHeadlines: any;
+}
+
+export default function NewsGlider({ newsHeadlines }: NewsGliderProps) {
+  // const newsHeadlines = [
+  //   {
+  //     title: "Breaking: New Tech Trends in 2025",
+  //     link: "/news/tech-trends-2025",
+  //   },
+  //   {
+  //     title: "Economy: Inflation Drops by 2% in the US",
+  //     link: "/news/inflation-update",
+  //   },
+  //   {
+  //     title: "Sports: Nigeria Wins AFCON 2025",
+  //     link: "/news/nigeria-afcon-2025",
+  //   },
+  //   {
+  //     title: "Music: Rema's new song declared potential jam of the year",
+  //     link: "/news/rema's new hit",
+  //   },
+  //   {
+  //     title:
+  //       "Breaking: D.O.G.E discovers tax payer money used to fund terrorist groups",
+  //     link: "/news/terrorist-funding-by-the-us",
+  //   },
+  // ];
 
   return (
     <div className="md:mx-20 mx-2 py-2">
@@ -45,10 +49,10 @@ export default function NewsGlider() {
           }}
           whileHover={{ x: 0 }}
         >
-          {newsHeadlines.map((news, index) => (
+          {newsHeadlines.map((news: any) => (
             <Link
-              key={index}
-              href={news.link}
+              key={news.id}
+              href={`news/${news.permalink}`}
               className="text-black flex items-center text-sm font-medium hover:underline whitespace-nowrap overflow-hidden"
             >
               <LuDot size={25} />
