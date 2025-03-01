@@ -8,20 +8,14 @@ import { getSession } from "./getSession";
 import { revalidatePath } from "next/cache";
 import crypto from "crypto";
 import { createClient } from "@supabase/supabase-js";
-const Mailgun = require("mailgun.js").default;
-import formData from "form-data";
-
-const mailgun = new Mailgun(formData);
-const mg = mailgun.client({
-  username: "api",
-  key: process.env.MAILGUN_API_KEY || "API KEY",
-  url: "https://api.eu.mailgun.net/v3/",
-});
+import { Resend } from "resend";
 
 // Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL; // Your Supabase URL
 const supabaseKey = process.env.SUPABASE_ANON_KEY; // Your Supabase Anon Key
 const supabase = createClient(supabaseUrl as string, supabaseKey as string);
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Logs in a user
 export const login = async (formData: FormData) => {
@@ -67,22 +61,27 @@ export const resetPassword = async (email: string) => {
     },
   });
 
-  await sendEmail({
-    from: "LJE Nigeria <admin@ljenigeria.com>",
+  const { data, error } = await resend.emails.send({
+    from: "LJE-Nigeria <admin@mail.ljenigeria.org>",
     to: [email],
     subject: "Reset Password - LJE Nigeria",
     html: `<div>
-    <h1>
+     <h1>
       Reset password for <b>${user.userName}</b>
-    </h1>
-    <p>
-      To reset your password, click on this link and follow the instructions:{" "}
-      <a href="https://ljenigeria.org/reset-password?token=${resetPasswordToken}">
-        Click here to reset
-      </a>
-    </p>
-  </div>`,
+     </h1>
+     <p>
+       To reset your password, click on this link and follow the instructions:{" "}
+       <a href="https://ljenigeria.org/reset-password?token=${resetPasswordToken}">
+         Click here to reset
+       </a>
+     </p>
+   </div>`,
   });
+
+  if (error) {
+    console.log(error);
+  }
+
   return "Password reset email sent";
 };
 
@@ -122,29 +121,6 @@ export const changePasswordOnReset = async (
   });
 
   return "Password changed succesfully";
-};
-
-// Create mail with options provided
-export const sendEmail = async (payload: {
-  from: string;
-  to: string[];
-  subject: string;
-  html: string;
-}) => {
-  try {
-    const response = await mg.messages.create(mg.ljenigeria.org, {
-      from: payload.from,
-      to: payload.to,
-      subject: payload.subject,
-      html: payload.html,
-    });
-
-    console.log("Email sent successfully:", response);
-    return response;
-  } catch (error) {
-    console.error("Error sending email:", error);
-    throw error;
-  }
 };
 
 // Creates a new user and sends a welcome mail
@@ -194,8 +170,6 @@ export const createUser = async (formData: FormData) => {
     }
   };
 
-  console.log(formData.get("dob"));
-
   if (existingUserEmail) {
     return "User already exists";
   }
@@ -228,16 +202,23 @@ export const createUser = async (formData: FormData) => {
     },
   });
   // Sends a mail to new user
-
-  await sendEmail({
-    from: "LJE Nigeria <admin@ljenigeria.com>",
+  const { data, error } = await resend.emails.send({
+    from: "LJE-Nigeria <admin@mail.ljenigeria.org>",
     to: [formData.get("email") as string],
     subject: "Welcome to LJE Nigeria",
     html: `<div>
-    <h1>Welcome, ${formData.get("username") as string} to LJE Nigeria!</h1>
-    <p>Your account has been created successfully. Please login to continue.</p>
+    <h1>
+      Welcome to LJE Nigeria</b>
+    </h1>
+    <p>
+      Welcome to LJE Nigeria, we are excited to have you on board. The Leadership Hub, Justice and Economic Advancement is a radical leadership, justice and economic emancipation movement formed in the year 2023 with the aim of bringing together revolutionary, activists community-based organizations as well as lobby groups under the umbrella of the organization for the purpose of pursuing the struggle for economic emancipation.</p>
   </div>`,
   });
+
+  if (error) {
+    console.log(error);
+  }
+
   redirect("/login?signupsucess=true");
 };
 
