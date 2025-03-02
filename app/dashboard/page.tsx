@@ -20,8 +20,8 @@ const Dashboard = async ({ searchParams }: DashboardPageProps) => {
   return (
     <>
       <div className="px-4 pt-8 pb-0 min-h-screen">
-        <h1 className="text-center text-xl tracking-wide underline">
-          ANNOUNCEMENTS
+        <h1 className="text-center text-xl tracking-normal underline">
+          LJE NEWS CENTER
         </h1>
         {announcements.map((announcement) => {
           return (

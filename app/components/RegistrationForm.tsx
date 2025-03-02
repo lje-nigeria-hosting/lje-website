@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { HiMail, HiUser } from "react-icons/hi";
 import { HiKey } from "react-icons/hi2";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
@@ -8,6 +8,8 @@ import DobLabel from "./ui/DobLabel";
 import { createUser } from "@/utils/actions";
 
 export default function RegistrationForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -66,6 +68,10 @@ export default function RegistrationForm() {
     "Yobe",
     "Zamfara",
   ];
+
+  const changeButtonText = () => {
+    setIsSubmitting(true);
+  };
 
   return (
     <form className="space-y-4" onSubmit={handleRegister}>
@@ -189,10 +195,28 @@ export default function RegistrationForm() {
             terms and conditions.
           </span>
         </p>
-        <button type="submit" className="btn w-full text-white bg-[#0C9F0A]">
+        <button
+          type="submit"
+          onClick={changeButtonText}
+          className={
+            isSubmitting
+              ? "btn w-full text-white bg-gray-300"
+              : "btn w-full text-white bg-[#0C9F0A]"
+          }
+        >
+          {isSubmitting ? (
+            <span className="loading loading-dots loading-md"></span>
+          ) : (
+            <div>
+              Create Account{" "}
+              <IoArrowForwardCircleOutline size={20} className="inline mr-3" />
+            </div>
+          )}
+        </button>
+        {/* <button type="submit" className="btn w-full text-white bg-[#0C9F0A]">
           Create Account{" "}
           <IoArrowForwardCircleOutline size={20} className="inline mr-3" />
-        </button>
+        </button> */}
       </div>
     </form>
   );

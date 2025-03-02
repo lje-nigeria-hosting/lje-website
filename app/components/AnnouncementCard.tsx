@@ -51,7 +51,9 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
               {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}
             </p>
             {membersOnly === "YES" && (
-              <p className="text-red-500 text-[13px]">Members Only</p>
+              <p className="text-red-500 text-[13px] flex justify-end">
+                Members Only
+              </p>
             )}
           </div>
         </div>

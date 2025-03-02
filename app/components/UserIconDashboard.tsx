@@ -32,7 +32,7 @@ const UserIconDashboard: React.FC<UserDashboardNavbarProps> = ({
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute right-16 mt-[20%] py-5 w-auto px-4 bg-white border border-gray-200 shadow-lg rounded-md"
+          className="absolute md:right-16 right-7 md:mt-[20%] mt-60 py-5 w-auto px-4 bg-white border border-gray-200 shadow-lg rounded-md"
         >
           <ul className="space-y-4">
             <li onClick={() => setIsModalOpen(false)}>
@@ -56,7 +56,7 @@ const UserIconDashboard: React.FC<UserDashboardNavbarProps> = ({
                 href="/dashboard/account-details"
               >
                 <TbInfoCircle size={25} />
-                <p className="text-base font-medium">Account Details</p>
+                <p className="text-base font-medium">More info</p>
               </Link>
             </li>
             <li

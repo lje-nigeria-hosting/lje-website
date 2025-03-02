@@ -39,18 +39,11 @@ export default async function HomePage() {
           </p>
           <div className="block">
             <Link
-              href="/signup"
+              href="/login"
               className="btn text-white bg-green-700 mt-5 md:mt-8 md:px-10 px-6 border-none hover:bg-gray-900"
             >
-              Sign Up <FaCircleUser size={20} className="inline-block" />
-            </Link>
-          </div>
-          <div>
-            <Link
-              href="/login"
-              className="btn text-white bg-green-700 mt-3 md:px-10 px-7 border-none hover:bg-gray-900"
-            >
-              Sign In <FaLongArrowAltRight size={20} className="inline-block" />
+              Sign Up / Login{" "}
+              <FaCircleUser size={20} className="inline-block" />
             </Link>
           </div>
         </div>

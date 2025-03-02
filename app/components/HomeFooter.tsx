@@ -22,11 +22,10 @@ export default function HomeFooter() {
           {/* About Us Section */}
           <div className="text-center md:text-left">
             <p className="text-gray-300 text-sm leading-relaxed pt-2">
-              We are a forward-thinking media company, delivering top-notch news
-              and analysis on emerging trends. The leadership Hub announced its
+              The Leadership Hub, Justice and Economic advancement announced its
               formation on 1st, October 2023 in Asaba. The organization
               describes itself as a radical and leadership movement, Justice
-              system and Economic Advancement, calling for 'leadership freedom
+              system and economic advancement, calling for 'leadership freedom
               in our lifetime'.
             </p>
           </div>
